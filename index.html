@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carta de Dedicatoria ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --rose: #c0392b;
+    --blush: #f9e4e4;
+    --gold: #b8860b;
+    --cream: #fdf6f0;
+    --dark: #2c1a1a;
+    --petal: #e8a0a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ========== TABS ========== */
+  .tabs {
+    display: flex;
+    background: var(--dark);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px;
+    background: none;
+    border: none;
+    color: #999;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all .3s;
+    border-bottom: 3px solid transparent;
+  }
+  .tab-btn.active {
+    color: var(--petal);
+    border-bottom-color: var(--rose);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ========== CARD VIEW ========== */
+  .card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 16px 60px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.15), 0 2px 8px rgba(0,0,0,.08);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Petal border top */
+  .card::before {
+    content: '';
+    display: block;
+    height: 6px;
+    background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
+  }
+
+  /* Photo section */
+  .photo-section {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #f0e0e0;
+  }
+  .photo-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f9e4e4, #fce4ec);
+    color: var(--petal);
+    font-size: 14px;
+    letter-spacing: 2px;
+    gap: 10px;
+  }
+  .photo-placeholder svg { opacity: .4; }
+
+  /* Overlay ornament */
+  .photo-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(to top, rgba(255,255,255,.9), transparent);
+  }
+
+  /* Body */
+  .card-body {
+    padding: 28px 28px 24px;
+    position: relative;
+  }
+
+  .ornament {
+    text-align: center;
+    color: var(--rose);
+    font-size: 22px;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+  }
+
+  .to-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: var(--rose);
+    text-align: center;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+
+  .dedication-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    line-height: 1.75;
+    color: #4a3030;
+    text-align: justify;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .from-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
+    color: var(--gold);
+    text-align: right;
+    margin-top: 20px;
+  }
+
+  /* Music player */
+  .music-section {
+    margin: 20px 28px 0;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #fff0f0, #fff8f0);
+    border-radius: 50px;
+    border: 1px solid #f0d0d0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .music-section.hidden { display: none; }
+
+  .play-btn {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--rose);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform .2s, background .2s;
+  }
+  .play-btn:hover { transform: scale(1.08); background: #a93226; }
+  .play-btn svg { margin-left: 2px; }
+
+  .song-info { flex: 1; min-width: 0; }
+  .song-title-display {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: .5px;
+  }
+  .song-sub {
+    font-size: 11px;
+    color: #999;
+    margin-top: 2px;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    height: 3px;
+    background: #f0d0d0;
+    border-radius: 3px;
+    margin-top: 6px;
+    cursor: pointer;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--rose);
+    border-radius: 3px;
+    width: 0%;
+    transition: width .5s linear;
+  }
+
+  audio { display: none; }
+
+  /* Card footer */
+  .card-footer {
+    padding: 18px 28px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #c0a0a0;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .heart-footer { color: var(--rose); font-size: 14px; animation: pulse 1.5s infinite; }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  /* ========== EDITOR ========== */
+  .editor-wrap {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .editor-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--rose);
+    margin-bottom: 6px;
+    text-align: center;
+  }
+  .editor-sub {
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+  }
+
+  .field-group { margin-bottom: 22px; }
+  .field-label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  input[type="text"], textarea, input[type="url"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e8d0d0;
+    border-radius: 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--dark);
+    background: white;
+    outline: none;
+    transition: border-color .2s;
+  }
+  input:focus, textarea:focus { border-color: var(--rose); }
+  textarea { resize: vertical; min-height: 120px; }
+
+  /* Photo upload */
+  .photo-upload-box {
+    border: 2px dashed #e8d0d0;
+    border-radius: 6px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    background: #fff9f9;
+    transition: border-color .2s, background .2s;
+    position: relative;
+  }
+  .photo-upload-box:hover { border-color: var(--rose); background: #fff0f0; }
+  .photo-upload-box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .photo-preview {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-top: 10px;
+    display: none;
+  }
+  .upload-hint { color: #bbb; font-size: 13px; }
+  .upload-hint span { display: block; font-size: 22px; margin-bottom: 6px; }
+
+  /* Song type selector */
+  .song-type-btns {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .type-btn {
+    flex: 1;
+    padding: 9px;
+    border: 1.5px solid #e8d0d0;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    color: #888;
+    transition: all .2s;
+  }
+  .type-btn.active { background: var(--rose); color: white; border-color: var(--rose); }
+
+  .song-input-section { display: none; }
+  .song-input-section.visible { display: block; }
+
+  .save-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--rose);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background .2s, transform .1s;
+    margin-top: 8px;
+  }
+  .save-btn:hover { background: #a93226; }
+  .save-btn:active { transform: scale(.98); }
+
+  .saved-toast {
+    text-align: center;
+    color: #27ae60;
+    font-size: 14px;
+    margin-top: 12px;
+    opacity: 0;
+    transition: opacity .3s;
+    letter-spacing: 1px;
+  }
+  .saved-toast.show { opacity: 1; }
+
+  /* ========== QR TAB ========== */
+  .qr-wrap {
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 36px 20px 60px;
+    text-align: center;
+  }
+  .qr-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--rose);
+    margin-bottom: 8px;
+  }
+  .qr-wrap p { color: #888; font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
+
+  #qr-container {
+    display: inline-block;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.1);
+    position: relative;
+  }
+  #qr-container::before, #qr-container::after {
+    content: '❤';
+    position: absolute;
+    color: var(--rose);
+    font-size: 18px;
+  }
+  #qr-container::before { top: 6px; left: 10px; }
+  #qr-container::after { bottom: 6px; right: 10px; }
+
+  #qrcode { display: inline-block; }
+  #qrcode canvas, #qrcode img { border-radius: 4px; }
+
+  .qr-url-display {
+    margin: 20px 0 10px;
+    padding: 12px 16px;
+    background: #f9f0f0;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #888;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  .qr-btns { display: flex; gap: 10px; margin-top: 16px; }
+  .qr-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1.5px solid var(--rose);
+    background: white;
+    color: var(--rose);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .qr-btn:hover { background: var(--rose); color: white; }
+  .qr-btn.primary { background: var(--rose); color: white; }
+  .qr-btn.primary:hover { background: #a93226; }
+
+  /* ========== INSTRUCTIONS ========== */
+  .instructions {
+    background: #fff8f0;
+    border-left: 3px solid var(--gold);
+    padding: 14px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 24px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5a4040;
+  }
+  .instructions strong { color: var(--gold); }
+
+  @media (max-width: 400px) {
+    .card-body { padding: 20px 18px 18px; }
+    .music-section { margin: 16px 18px 0; }
+    .card-footer { padding: 16px 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('vista')">💌 Vista</button>
+  <button class="tab-btn" onclick="switchTab('editar')">✏️ Editar</button>
+  <button class="tab-btn" onclick="switchTab('qr')">📲 QR</button>
+</div>
+
+<!-- ===== VISTA ===== -->
+<div id="tab-vista" class="tab-content active">
+  <div class="card-wrapper">
+    <div class="card">
+      <!-- Photo -->
+      <div class="photo-section" id="photoSection">
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21,15 16,10 5,21"/>
+          </svg>
+          <span>Tu foto aquí</span>
+        </div>
+        <img id="cardPhoto" src="" alt="" style="display:none"/>
+        <div class="photo-overlay"></div>
+      </div>
+
+      <div class="card-body">
+        <div class="ornament">✦ ❤ ✦</div>
+        <div class="to-name" id="cardTo">Para ti...</div>
+        <div class="dedication-text" id="cardText">Aquí irá tu dedicatoria especial. Escríbela en la pestaña ✏️ Editar y quedará guardada para siempre.</div>
+        <div class="from-line" id="cardFrom">Con amor ❤</div>
+      </div>
+
+      <!-- Music -->
+      <div class="music-section hidden" id="musicSection">
+        <button class="play-btn" onclick="togglePlay()" id="playBtn">
+          <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </button>
+        <div class="song-info">
+          <div class="song-title-display" id="songTitleDisplay">Canción especial</div>
+          <div class="progress-wrap" onclick="seekAudio(event)">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <div class="song-sub" id="songTime">0:00</div>
+        </div>
+        <audio id="audioPlayer" onended="resetPlay()" ontimeupdate="updateProgress()"></audio>
+      </div>
+
+      <div class="card-footer">
+        <span class="heart-footer">❤</span>
+        <span>Con todo mi amor</span>
+        <span class="heart-footer">❤</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EDITOR ===== -->
+<div id="tab-editar" class="tab-content">
+  <div class="editor-wrap">
+    <h2 class="editor-title">✏️ Personaliza tu carta</h2>
+    <p class="editor-sub">Todos los cambios se guardan en este dispositivo</p>
+
+    <!-- Photo -->
+    <div class="field-group">
+      <label class="field-label">📸 Foto</label>
+      <div class="photo-upload-box">
+        <input type="file" accept="image/*" onchange="uploadPhoto(event)" id="photoInput">
+        <div class="upload-hint">
+          <span>🖼️</span>
+          Toca aquí para subir una foto
+        </div>
+        <img class="photo-preview" id="photoPreview" src="" alt="">
+      </div>
+    </div>
+
+    <!-- To -->
+    <div class="field-group">
+      <label class="field-label">💌 Para (nombre)</label>
+      <input type="text" id="inputTo" placeholder="Para mi amor..." oninput="liveUpdate()">
+    </div>
+
+    <!-- Dedication -->
+    <div class="field-group">
+      <label class="field-label">📝 Dedicatoria</label>
+      <textarea id="inputText" placeholder="Escribe aquí tu dedicatoria con todo el amor del mundo..." oninput="liveUpdate()"></textarea>
+    </div>
+
+    <!-- From -->
+    <div class="field-group">
+      <label class="field-label">✍️ De parte de</label>
+      <input type="text" id="inputFrom" placeholder="Con amor, ..." oninput="liveUpdate()">
+    </div>
+
+    <!-- Song -->
+    <div class="field-group">
+      <label class="field-label">🎵 Canción (opcional)</label>
+      <div class="song-type-btns">
+        <button class="type-btn active" onclick="setSongType('none', this)">Sin canción</button>
+        <button class="type-btn" onclick="setSongType('url', this)">Enlace MP3</button>
+        <button class="type-btn" onclick="setSongType('upload', this)">Subir archivo</button>
+      </div>
+
+      <div class="song-input-section" id="songUrlSection">
+        <input type="url" id="inputSongUrl" placeholder="https://... (enlace directo a .mp3)" oninput="liveUpdate()">
+        <p style="font-size:12px;color:#aaa;margin-top:6px;">⚠️ El enlace debe ser accesible públicamente y terminar en .mp3</p>
+      </div>
+
+      <div class="song-input-section" id="songUploadSection">
+        <div class="photo-upload-box" style="margin-top:0">
+          <input type="file" accept="audio/*" onchange="uploadSong(event)" id="songFileInput">
+          <div class="upload-hint">
+            <span>🎵</span>
+            Toca para subir audio (MP3, etc.)
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group" id="songTitleGroup" style="margin-bottom:0;margin-top:12px;display:none">
+        <input type="text" id="inputSongTitle" placeholder="Nombre de la canción" oninput="liveUpdate()">
+      </div>
+    </div>
+
+    <button class="save-btn" onclick="saveAll()">💾 Guardar cambios</button>
+    <p class="saved-toast" id="savedToast">✅ ¡Guardado con éxito!</p>
+
+    <div class="instructions">
+      <strong>¿Cómo compartir?</strong><br>
+      1. Edita y guarda tu carta aquí.<br>
+      2. Ve a la pestaña <strong>📲 QR</strong> para generar el código.<br>
+      3. Comparte el QR y quien lo escanee verá tu carta tal como la diseñaste.
+    </div>
+  </div>
+</div>
+
+<!-- ===== QR ===== -->
+<div id="tab-qr" class="tab-content">
+  <div class="qr-wrap">
+    <h2>📲 Tu código QR</h2>
+    <p>Quien escanee este código verá tu carta completa. El QR apunta a la URL de esta página.</p>
+    <div id="qr-container">
+      <div id="qrcode"></div>
+    </div>
+    <div class="qr-url-display" id="qrUrlDisplay">—</div>
+    <div class="qr-btns">
+      <button class="qr-btn" onclick="copyLink()">🔗 Copiar enlace</button>
+      <button class="qr-btn primary" onclick="downloadQR()">⬇️ Descargar QR</button>
+    </div>
+    <div class="instructions" style="text-align:left">
+      <strong>Consejo:</strong> Para que el QR funcione en cualquier teléfono, necesitas publicar este archivo HTML en internet (por ejemplo en <strong>GitHub Pages</strong>, <strong>Netlify</strong> o <strong>Google Drive</strong>). Una vez publicado, el QR apuntará a esa URL y cualquier persona podrá ver tu carta.
+    </div>
+  </div>
+</div>
+
+<script>
+// ==================== STATE ====================
+let state = {
+  to: '',
+  text: '',
+  from: '',
+  photoData: null,     // base64
+  songType: 'none',    // none | url | upload
+  songUrl: '',         // url or base64
+  songTitle: '',
+};
+
+// ==================== INIT ====================
+function init() {
+  const saved = localStorage.getItem('dedicatoria_v2');
+  if (saved) {
+    try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {}
+  }
+  applyToCard();
+  loadEditorFields();
+  generateQR();
+}
+
+// ==================== TABS ====================
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+  if (name === 'qr') generateQR();
+}
+
+// ==================== LIVE UPDATE ====================
+function liveUpdate() {
+  state.to   = document.getElementById('inputTo').value;
+  state.text = document.getElementById('inputText').value;
+  state.from = document.getElementById('inputFrom').value;
+  if (state.songType === 'url') state.songUrl = document.getElementById('inputSongUrl').value;
+  state.songTitle = document.getElementById('inputSongTitle').value;
+  applyToCard();
+}
+
+function applyToCard() {
+  // Names
+  document.getElementById('cardTo').textContent = state.to || 'Para ti...';
+  document.getElementById('cardText').textContent = state.text || 'Aquí irá tu dedicatoria especial. Escríbela en la pestaña ✏️ Editar.';
+  document.getElementById('cardFrom').textContent = state.from || 'Con amor ❤';
+
+  // Photo
+  if (state.photoData) {
+    document.getElementById('cardPhoto').src = state.photoData;
+    document.getElementById('cardPhoto').style.display = 'block';
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  } else {
+    document.getElementById('cardPhoto').style.display = 'none';
+    document.getElementById('photoPlaceholder').style.display = 'flex';
+  }
+
+  // Song
+  const ms = document.getElementById('musicSection');
+  const audio = document.getElementById('audioPlayer');
+  if (state.songType !== 'none' && state.songUrl) {
+    ms.classList.remove('hidden');
+    document.getElementById('songTitleDisplay').textContent = state.songTitle || 'Canción especial';
+    if (audio.src !== state.songUrl) {
+      audio.src = state.songUrl;
+      audio.load();
+      resetPlay();
+    }
+  } else {
+    ms.classList.add('hidden');
+  }
+}
+
+function loadEditorFields() {
+  document.getElementById('inputTo').value = state.to;
+  document.getElementById('inputText').value = state.text;
+  document.getElementById('inputFrom').value = state.from;
+  document.getElementById('inputSongUrl').value = state.songUrl || '';
+  document.getElementById('inputSongTitle').value = state.songTitle || '';
+
+  if (state.photoData) {
+    const prev = document.getElementById('photoPreview');
+    prev.src = state.photoData;
+    prev.style.display = 'block';
+    document.querySelector('#tab-editar .upload-hint').style.display = 'none';
+  }
+
+  setSongTypeByValue(state.songType);
+}
+
+// ==================== PHOTO ====================
+function uploadPhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    state.photoData = ev.target.result;
+    const prev = document.getElementById('photoPreview');
+    prev.src = state.photoData;
+    prev.style.display = 'block';
+    document.querySelector('#tab-editar .upload-hint').style.display = 'none';
+    applyToCard();
+  };
+  reader.readAsDataURL(file);
+}
+
+// ==================== SONG ====================
+let currentSongType = 'none';
+
+function setSongType(type, btn) {
+  currentSongType = type;
+  state.songType = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  document.getElementById('songUrlSection').classList.remove('visible');
+  document.getElementById('songUploadSection').classList.remove('visible');
+  document.getElementById('songTitleGroup').style.display = 'none';
+
+  if (type === 'url') {
+    document.getElementById('songUrlSection').classList.add('visible');
+    document.getElementById('songTitleGroup').style.display = 'block';
+  } else if (type === 'upload') {
+    document.getElementById('songUploadSection').classList.add('visible');
+    document.getElementById('songTitleGroup').style.display = 'block';
+  } else {
+    state.songUrl = '';
+    applyToCard();
+  }
+}
+
+function setSongTypeByValue(type) {
+  currentSongType = type;
+  state.songType = type;
+  document.querySelectorAll('.type-btn').forEach((b, i) => {
+    b.classList.remove('active');
+    if ((i===0 && type==='none') || (i===1 && type==='url') || (i===2 && type==='upload'))
+      b.classList.add('active');
+  });
+  document.getElementById('songUrlSection').classList.remove('visible');
+  document.getElementById('songUploadSection').classList.remove('visible');
+  document.getElementById('songTitleGroup').style.display = 'none';
+  if (type === 'url') {
+    document.getElementById('songUrlSection').classList.add('visible');
+    document.getElementById('songTitleGroup').style.display = 'block';
+  } else if (type === 'upload') {
+    document.getElementById('songUploadSection').classList.add('visible');
+    document.getElementById('songTitleGroup').style.display = 'block';
+  }
+}
+
+function uploadSong(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!state.songTitle) {
+    state.songTitle = file.name.replace(/\.[^.]+$/, '');
+    document.getElementById('inputSongTitle').value = state.songTitle;
+  }
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    state.songUrl = ev.target.result;
+    applyToCard();
+  };
+  reader.readAsDataURL(file);
+}
+
+// ==================== AUDIO PLAYER ====================
+let playing = false;
+
+function togglePlay() {
+  const audio = document.getElementById('audioPlayer');
+  if (playing) {
+    audio.pause();
+    playing = false;
+    document.getElementById('playIcon').innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+  } else {
+    audio.play().catch(e => console.log('Audio error:', e));
+    playing = true;
+    document.getElementById('playIcon').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+  }
+}
+
+function resetPlay() {
+  playing = false;
+  document.getElementById('playIcon').innerHTML = '<polygon points="5,3 19,12 5,21"/>';
+  document.getElementById('progressBar').style.width = '0%';
+  document.getElementById('songTime').textContent = '0:00';
+}
+
+function updateProgress() {
+  const audio = document.getElementById('audioPlayer');
+  if (!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('progressBar').style.width = pct + '%';
+  const m = Math.floor(audio.currentTime / 60);
+  const s = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+  document.getElementById('songTime').textContent = m + ':' + s;
+}
+
+function seekAudio(e) {
+  const audio = document.getElementById('audioPlayer');
+  if (!audio.duration) return;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = pct * audio.duration;
+}
+
+// ==================== SAVE ====================
+function saveAll() {
+  state.to   = document.getElementById('inputTo').value;
+  state.text = document.getElementById('inputText').value;
+  state.from = document.getElementById('inputFrom').value;
+  if (state.songType === 'url') state.songUrl = document.getElementById('inputSongUrl').value;
+  state.songTitle = document.getElementById('inputSongTitle').value;
+
+  try {
+    localStorage.setItem('dedicatoria_v2', JSON.stringify(state));
+  } catch(e) {
+    alert('Nota: la foto o audio puede ser muy grande para guardar localmente. Considera usar un enlace URL para el audio.');
+    // Save without media
+    const s2 = { ...state, photoData: null, songUrl: state.songType === 'url' ? state.songUrl : '' };
+    localStorage.setItem('dedicatoria_v2', JSON.stringify(s2));
+  }
+
+  applyToCard();
+  const toast = document.getElementById('savedToast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ==================== QR ====================
+let qrGenerated = false;
+
+function generateQR() {
+  const container = document.getElementById('qrcode');
+  const urlDisplay = document.getElementById('qrUrlDisplay');
+  const url = window.location.href.split('?')[0];
+
+  urlDisplay.textContent = url;
+  container.innerHTML = '';
+  qrGenerated = false;
+
+  try {
+    new QRCode(container, {
+      text: url,
+      width: 200,
+      height: 200,
+      colorDark: '#2c1a1a',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    qrGenerated = true;
+  } catch(e) {
+    container.innerHTML = '<p style="color:#c0392b;font-size:13px">Error generando QR</p>';
+  }
+}
+
+function copyLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    alert('¡Enlace copiado al portapapeles!');
+  }).catch(() => {
+    prompt('Copia este enlace:', url);
+  });
+}
+
+function downloadQR() {
+  const canvas = document.querySelector('#qrcode canvas');
+  if (!canvas) { alert('Espera a que se genere el QR primero.'); return; }
+
+  // Create a nicer canvas
+  const out = document.createElement('canvas');
+  out.width = 300; out.height = 340;
+  const ctx = out.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, 300, 340);
+
+  // Border
+  ctx.strokeStyle = '#c0392b';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(2, 2, 296, 336);
+
+  // Title
+  ctx.fillStyle = '#c0392b';
+  ctx.font = 'bold 18px serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('❤ Escanéame ❤', 150, 34);
+
+  // QR
+  ctx.drawImage(canvas, 50, 50, 200, 200);
+
+  // Footer
+  ctx.fillStyle = '#888';
+  ctx.font = '12px serif';
+  ctx.fillText('Mi carta de dedicatoria', 150, 290);
+
+  const link = document.createElement('a');
+  link.download = 'mi-qr-dedicatoria.png';
+  link.href = out.toDataURL('image/png');
+  link.click();
+}
+
+// ==================== START ====================
+init();
+</script>
+</body>
+</html>
