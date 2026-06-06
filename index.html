@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carta de Dedicatoria ❤️</title>
+<title>Carta de Dedicatoria ❤️ - QR Personalizado</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -71,15 +71,12 @@
     position: relative;
   }
 
-  /* Petal border top */
+  /* Petal border top (eliminado, pero lo dejamos sin nada para que no haya gradiente) */
   .card::before {
-    content: '';
-    display: block;
-    height: 6px;
-    background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
+    display: none;
   }
 
-  /* Photo section */
+  /* Photo section - sin superposiciones */
   .photo-section {
     position: relative;
     width: 100%;
@@ -108,12 +105,9 @@
   }
   .photo-placeholder svg { opacity: .4; }
 
-  /* Overlay ornament */
+  /* Eliminamos el overlay con gradiente */
   .photo-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 80px;
-    background: linear-gradient(to top, rgba(255,255,255,.9), transparent);
+    display: none;
   }
 
   /* Body */
@@ -466,7 +460,7 @@
           <span>Tu foto aquí</span>
         </div>
         <img id="cardPhoto" src="" alt="" style="display:none"/>
-        <div class="photo-overlay"></div>
+        <!-- Eliminado el div photo-overlay -->
       </div>
 
       <div class="card-body">
@@ -504,7 +498,7 @@
 <div id="tab-editar" class="tab-content">
   <div class="editor-wrap">
     <h2 class="editor-title">✏️ Personaliza tu carta</h2>
-    <p class="editor-sub">Todos los cambios se guardan en este dispositivo</p>
+    <p class="editor-sub">Todos los cambios se guardan y se comparten mediante el QR</p>
 
     <!-- Photo -->
     <div class="field-group">
@@ -517,6 +511,7 @@
         </div>
         <img class="photo-preview" id="photoPreview" src="" alt="">
       </div>
+      <p style="font-size:12px;color:#aaa;margin-top:5px;">⚠️ Imágenes pequeñas (menos de 1MB) para que la URL no sea muy larga.</p>
     </div>
 
     <!-- To -->
@@ -559,6 +554,7 @@
             Toca para subir audio (MP3, etc.)
           </div>
         </div>
+        <p style="font-size:12px;color:#aaa;margin-top:5px;">⚠️ Subir audio hará la URL muy larga. Mejor usar enlace externo.</p>
       </div>
 
       <div class="field-group" id="songTitleGroup" style="margin-bottom:0;margin-top:12px;display:none">
@@ -567,13 +563,14 @@
     </div>
 
     <button class="save-btn" onclick="saveAll()">💾 Guardar cambios</button>
-    <p class="saved-toast" id="savedToast">✅ ¡Guardado con éxito!</p>
+    <p class="saved-toast" id="savedToast">✅ ¡Guardado con éxito! La URL y el QR se actualizan.</p>
 
     <div class="instructions">
-      <strong>¿Cómo compartir?</strong><br>
-      1. Edita y guarda tu carta aquí.<br>
-      2. Ve a la pestaña <strong>📲 QR</strong> para generar el código.<br>
-      3. Comparte el QR y quien lo escanee verá tu carta tal como la diseñaste.
+      <strong>✨ ¿Cómo compartir tu carta personalizada?</strong><br>
+      1. Edita tu carta (foto, texto, canción).<br>
+      2. Pulsa <strong>Guardar cambios</strong>. La URL se actualizará con todos los datos.<br>
+      3. Ve a la pestaña <strong>📲 QR</strong> y descarga el código.<br>
+      4. Quien lo escanee verá la carta <strong>exactamente como tú la creaste</strong>, ¡sin necesidad de que tenga nada guardado!
     </div>
   </div>
 </div>
@@ -582,7 +579,7 @@
 <div id="tab-qr" class="tab-content">
   <div class="qr-wrap">
     <h2>📲 Tu código QR</h2>
-    <p>Quien escanee este código verá tu carta completa. El QR apunta a la URL de esta página.</p>
+    <p>Escanéame con cualquier móvil y verás tu carta personalizada.</p>
     <div id="qr-container">
       <div id="qrcode"></div>
     </div>
@@ -592,7 +589,8 @@
       <button class="qr-btn primary" onclick="downloadQR()">⬇️ Descargar QR</button>
     </div>
     <div class="instructions" style="text-align:left">
-      <strong>Consejo:</strong> Para que el QR funcione en cualquier teléfono, necesitas publicar este archivo HTML en internet (por ejemplo en <strong>GitHub Pages</strong>, <strong>Netlify</strong> o <strong>Google Drive</strong>). Una vez publicado, el QR apuntará a esa URL y cualquier persona podrá ver tu carta.
+      <strong>🔐 Privacidad:</strong> Los datos viajan en la URL. No incluyas información sensible.<br>
+      <strong>📏 Límite:</strong> Si usas foto muy pesada o subes un audio, la URL puede ser demasiado larga. Mejor usa enlaces externos para el audio y fotos pequeñas.
     </div>
   </div>
 </div>
@@ -609,27 +607,129 @@ let state = {
   songTitle: '',
 };
 
-// ==================== INIT ====================
-function init() {
-  const saved = localStorage.getItem('dedicatoria_v2');
-  if (saved) {
-    try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {}
+// ==================== FUNCIONES NUEVAS PARA URL COMPARTIBLE ====================
+
+// Actualiza la URL actual con los datos del estado (sin recargar la página)
+function updateURLWithState() {
+  try {
+    // Creamos una copia del estado sin datos extremadamente grandes? No, lo haremos todo.
+    // Pero advertimos al usuario si la URL se alarga demasiado.
+    const stateForURL = {
+      to: state.to,
+      text: state.text,
+      from: state.from,
+      photoData: state.photoData || '',
+      songType: state.songType,
+      songUrl: state.songUrl || '',
+      songTitle: state.songTitle || ''
+    };
+    const jsonStr = JSON.stringify(stateForURL);
+    // Codificar a base64 para la URL
+    const encoded = btoa(encodeURIComponent(jsonStr));
+    const newUrl = `${window.location.origin}${window.location.pathname}?data=${encoded}`;
+    
+    // Comprobar longitud (advertencia si excede 2000 caracteres)
+    if (newUrl.length > 2000) {
+      console.warn("La URL es muy larga:", newUrl.length, "caracteres. Puede que algunos generadores de QR o navegadores tengan problemas.");
+      alert("⚠️ La URL es muy larga porque la foto o el audio pesan mucho. Para compartir bien, usa una foto más pequeña o un enlace externo para la canción.");
+    }
+    
+    window.history.pushState({}, '', newUrl);
+    // Regeneramos el QR con la nueva URL
+    generateQR();
+  } catch(e) {
+    console.error("Error al codificar estado en URL:", e);
+    alert("No se pudo actualizar la URL. Los datos pueden ser demasiado grandes.");
   }
-  applyToCard();
-  loadEditorFields();
-  generateQR();
 }
 
-// ==================== TABS ====================
+// Lee los datos de la URL (si existen) y actualiza el estado y la interfaz.
+// Devuelve true si se cargaron datos desde la URL.
+function loadStateFromURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const encodedData = urlParams.get('data');
+  if (!encodedData) return false;
+  
+  try {
+    const jsonStr = decodeURIComponent(atob(encodedData));
+    const savedState = JSON.parse(jsonStr);
+    // Validar que sea un objeto
+    if (savedState && typeof savedState === 'object') {
+      Object.assign(state, savedState);
+      // Asegurar que songType tenga un valor válido
+      if (!['none', 'url', 'upload'].includes(state.songType)) state.songType = 'none';
+      // Aplicar a la interfaz
+      applyToCard();
+      loadEditorFields();
+      return true;
+    }
+  } catch(e) {
+    console.error('Error al leer datos de la URL:', e);
+  }
+  return false;
+}
+
+// ==================== MODIFICACIÓN DE init() ====================
+function init() {
+  // Intentar cargar desde la URL primero (prioridad máxima)
+  const loadedFromURL = loadStateFromURL();
+  
+  if (!loadedFromURL) {
+    // Si no hay datos en URL, cargar desde localStorage (como antes)
+    const saved = localStorage.getItem('dedicatoria_v2');
+    if (saved) {
+      try { state = { ...state, ...JSON.parse(saved) }; } catch(e) {}
+    }
+  }
+  
+  applyToCard();
+  loadEditorFields();
+  generateQR();  // Genera QR con la URL actual (que puede incluir datos)
+}
+
+// ==================== MODIFICACIÓN DE saveAll() ====================
+function saveAll() {
+  // Recoger valores actuales de los inputs
+  state.to   = document.getElementById('inputTo').value;
+  state.text = document.getElementById('inputText').value;
+  state.from = document.getElementById('inputFrom').value;
+  if (state.songType === 'url') state.songUrl = document.getElementById('inputSongUrl').value;
+  state.songTitle = document.getElementById('inputSongTitle').value;
+
+  // Guardar en localStorage (para la próxima visita en este dispositivo)
+  try {
+    localStorage.setItem('dedicatoria_v2', JSON.stringify(state));
+  } catch(e) {
+    console.warn("No se pudo guardar en localStorage (quizás foto muy grande)");
+  }
+  
+  applyToCard();
+  
+  // **NUEVO: Actualizar URL con los datos actuales**
+  updateURLWithState();
+  
+  // Mostrar toast de éxito
+  const toast = document.getElementById('savedToast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+  
+  // Cambiar a la pestaña de QR para que el usuario vea el nuevo código
+  // (opcional, pero útil)
+  // switchTab('qr');
+  // Para evitar cambiar de pestaña automáticamente si no quiere, lo dejamos comentado.
+}
+
+// ==================== RESTO DE FUNCIONES SIN CAMBIOS (excepto pequeñas adaptaciones) ====================
+
+// TABS
 function switchTab(name) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   event.target.classList.add('active');
-  if (name === 'qr') generateQR();
+  if (name === 'qr') generateQR();  // regenerar QR por si acaso
 }
 
-// ==================== LIVE UPDATE ====================
 function liveUpdate() {
   state.to   = document.getElementById('inputTo').value;
   state.text = document.getElementById('inputText').value;
@@ -640,12 +740,10 @@ function liveUpdate() {
 }
 
 function applyToCard() {
-  // Names
   document.getElementById('cardTo').textContent = state.to || 'Para ti...';
   document.getElementById('cardText').textContent = state.text || 'Aquí irá tu dedicatoria especial. Escríbela en la pestaña ✏️ Editar.';
   document.getElementById('cardFrom').textContent = state.from || 'Con amor ❤';
 
-  // Photo
   if (state.photoData) {
     document.getElementById('cardPhoto').src = state.photoData;
     document.getElementById('cardPhoto').style.display = 'block';
@@ -655,7 +753,6 @@ function applyToCard() {
     document.getElementById('photoPlaceholder').style.display = 'flex';
   }
 
-  // Song
   const ms = document.getElementById('musicSection');
   const audio = document.getElementById('audioPlayer');
   if (state.songType !== 'none' && state.songUrl) {
@@ -682,29 +779,38 @@ function loadEditorFields() {
     const prev = document.getElementById('photoPreview');
     prev.src = state.photoData;
     prev.style.display = 'block';
-    document.querySelector('#tab-editar .upload-hint').style.display = 'none';
+    const hint = document.querySelector('#tab-editar .upload-hint');
+    if (hint) hint.style.display = 'none';
+  } else {
+    const prev = document.getElementById('photoPreview');
+    if (prev) prev.style.display = 'none';
+    const hint = document.querySelector('#tab-editar .upload-hint');
+    if (hint) hint.style.display = 'block';
   }
 
   setSongTypeByValue(state.songType);
 }
 
-// ==================== PHOTO ====================
 function uploadPhoto(e) {
   const file = e.target.files[0];
   if (!file) return;
+  // Advertencia si el archivo es grande
+  if (file.size > 1024 * 1024) {
+    alert("La foto es grande (>1MB). La URL será muy larga y puede no funcionar bien. Mejor usa una imagen más pequeña.");
+  }
   const reader = new FileReader();
   reader.onload = function(ev) {
     state.photoData = ev.target.result;
     const prev = document.getElementById('photoPreview');
     prev.src = state.photoData;
     prev.style.display = 'block';
-    document.querySelector('#tab-editar .upload-hint').style.display = 'none';
+    const hint = document.querySelector('#tab-editar .upload-hint');
+    if (hint) hint.style.display = 'none';
     applyToCard();
   };
   reader.readAsDataURL(file);
 }
 
-// ==================== SONG ====================
 let currentSongType = 'none';
 
 function setSongType(type, btn) {
@@ -764,7 +870,6 @@ function uploadSong(e) {
   reader.readAsDataURL(file);
 }
 
-// ==================== AUDIO PLAYER ====================
 let playing = false;
 
 function togglePlay() {
@@ -805,37 +910,13 @@ function seekAudio(e) {
   audio.currentTime = pct * audio.duration;
 }
 
-// ==================== SAVE ====================
-function saveAll() {
-  state.to   = document.getElementById('inputTo').value;
-  state.text = document.getElementById('inputText').value;
-  state.from = document.getElementById('inputFrom').value;
-  if (state.songType === 'url') state.songUrl = document.getElementById('inputSongUrl').value;
-  state.songTitle = document.getElementById('inputSongTitle').value;
-
-  try {
-    localStorage.setItem('dedicatoria_v2', JSON.stringify(state));
-  } catch(e) {
-    alert('Nota: la foto o audio puede ser muy grande para guardar localmente. Considera usar un enlace URL para el audio.');
-    // Save without media
-    const s2 = { ...state, photoData: null, songUrl: state.songType === 'url' ? state.songUrl : '' };
-    localStorage.setItem('dedicatoria_v2', JSON.stringify(s2));
-  }
-
-  applyToCard();
-  const toast = document.getElementById('savedToast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
-}
-
-// ==================== QR ====================
 let qrGenerated = false;
 
 function generateQR() {
   const container = document.getElementById('qrcode');
   const urlDisplay = document.getElementById('qrUrlDisplay');
-  const url = window.location.href.split('?')[0];
-
+  // Tomamos la URL actual (que ya puede incluir los datos)
+  const url = window.location.href;
   urlDisplay.textContent = url;
   container.innerHTML = '';
   qrGenerated = false;
@@ -868,30 +949,24 @@ function downloadQR() {
   const canvas = document.querySelector('#qrcode canvas');
   if (!canvas) { alert('Espera a que se genere el QR primero.'); return; }
 
-  // Create a nicer canvas
   const out = document.createElement('canvas');
   out.width = 300; out.height = 340;
   const ctx = out.getContext('2d');
 
-  // Background
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, 300, 340);
 
-  // Border
   ctx.strokeStyle = '#c0392b';
   ctx.lineWidth = 4;
   ctx.strokeRect(2, 2, 296, 336);
 
-  // Title
   ctx.fillStyle = '#c0392b';
   ctx.font = 'bold 18px serif';
   ctx.textAlign = 'center';
   ctx.fillText('❤ Escanéame ❤', 150, 34);
 
-  // QR
   ctx.drawImage(canvas, 50, 50, 200, 200);
 
-  // Footer
   ctx.fillStyle = '#888';
   ctx.font = '12px serif';
   ctx.fillText('Mi carta de dedicatoria', 150, 290);
@@ -902,8 +977,8 @@ function downloadQR() {
   link.click();
 }
 
-// ==================== START ====================
-init();
+// Iniciar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
