@@ -689,34 +689,44 @@ function init() {
 
 // ==================== MODIFICACIÓN DE saveAll() ====================
 function saveAll() {
-  // Recoger valores actuales de los inputs
-  state.to   = document.getElementById('inputTo').value;
+ function saveAll() {
+  // Recoger valores
+  state.to = document.getElementById('inputTo').value;
   state.text = document.getElementById('inputText').value;
   state.from = document.getElementById('inputFrom').value;
   if (state.songType === 'url') state.songUrl = document.getElementById('inputSongUrl').value;
   state.songTitle = document.getElementById('inputSongTitle').value;
 
-  // Guardar en localStorage (para la próxima visita en este dispositivo)
-  try {
-    localStorage.setItem('dedicatoria_v2', JSON.stringify(state));
-  } catch(e) {
-    console.warn("No se pudo guardar en localStorage (quizás foto muy grande)");
-  }
-  
+  // Guardar en localStorage
+  localStorage.setItem('dedicatoria_v2', JSON.stringify(state));
   applyToCard();
-  
-  // **NUEVO: Actualizar URL con los datos actuales**
-  updateURLWithState();
-  
-  // Mostrar toast de éxito
+
+  // === NUEVO: Forzar actualización de URL ===
+  try {
+    const stateForURL = {
+      to: state.to,
+      text: state.text,
+      from: state.from,
+      photoData: state.photoData || '',
+      songType: state.songType,
+      songUrl: state.songUrl || '',
+      songTitle: state.songTitle || ''
+    };
+    const jsonStr = JSON.stringify(stateForURL);
+    const encoded = btoa(encodeURIComponent(jsonStr));
+    const newUrl = window.location.origin + window.location.pathname + '?data=' + encoded;
+    window.history.pushState({}, '', newUrl);
+    console.log('URL actualizada a:', newUrl);
+    generateQR();  // regenerar QR con la nueva URL
+  } catch(e) {
+    console.error('Error al actualizar URL:', e);
+    alert('No se pudo actualizar la URL. Los datos pueden ser demasiado grandes.');
+  }
+
+  // Mostrar toast
   const toast = document.getElementById('savedToast');
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
-  
-  // Cambiar a la pestaña de QR para que el usuario vea el nuevo código
-  // (opcional, pero útil)
-  // switchTab('qr');
-  // Para evitar cambiar de pestaña automáticamente si no quiere, lo dejamos comentado.
 }
 
 // ==================== RESTO DE FUNCIONES SIN CAMBIOS (excepto pequeñas adaptaciones) ====================
