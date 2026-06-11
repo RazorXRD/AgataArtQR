@@ -57,7 +57,7 @@
   .photo-section.has-photo { display: block; }
   .photo-section img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
   }
 
@@ -185,11 +185,47 @@
     letter-spacing: 8px;
     animation: pulse 1.5s infinite;
   }
+
+  /* Tap to open overlay (enables autoplay) */
+  .open-overlay {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, var(--cream), var(--blush));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    cursor: pointer;
+    text-align: center;
+    padding: 20px;
+  }
+  .open-overlay .heart-big {
+    font-size: 56px;
+    color: var(--rose);
+    animation: pulse 1.4s infinite;
+    margin-bottom: 20px;
+  }
+  .open-overlay h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .open-overlay p {
+    color: #b08080;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
 </style>
 </head>
 <body>
 
 <div id="loading" class="loading">❤</div>
+<div id="openOverlay" class="open-overlay" style="display:none" onclick="openCard()">
+  <div class="heart-big">❤</div>
+  <h2>Tienes una carta especial</h2>
+  <p>Toca para abrirla ✦</p>
+</div>
 <div id="card" class="card" style="display:none">
   <div class="photo-section" id="photoSection">
     <img id="cardPhoto" src="" alt="">
@@ -226,6 +262,8 @@
 
 <script>
 // ===== LOAD POSTAL FROM URL =====
+let postalData = null;
+
 window.addEventListener('load', function() {
   const hash = window.location.hash.slice(1);
   const params = new URLSearchParams(window.location.search);
@@ -241,14 +279,31 @@ window.addEventListener('load', function() {
 
     try {
       const json = LZString.decompressFromEncodedURIComponent(encoded);
-      const data = JSON.parse(json);
-      renderPostal(data);
-      document.getElementById('card').style.display = 'block';
+      postalData = JSON.parse(json);
+      renderPostal(postalData);
+      // Show "tap to open" overlay first (enables autoplay on tap)
+      document.getElementById('openOverlay').style.display = 'flex';
     } catch(e) {
       document.getElementById('errorState').classList.add('visible');
     }
   }, 600);
 });
+
+function openCard() {
+  document.getElementById('openOverlay').style.display = 'none';
+  document.getElementById('card').style.display = 'block';
+
+  // Try to autoplay music after user interaction
+  if (postalData && postalData.songData) {
+    const audio = document.getElementById('audioPlayer');
+    audio.play().then(() => {
+      playing = true;
+      document.getElementById('playIcon').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    }).catch(() => {
+      // Autoplay blocked, user can press play manually
+    });
+  }
+}
 
 function renderPostal(d) {
   document.title = d.to ? `Para ${d.to} ❤️` : 'Carta de Dedicatoria ❤️';
