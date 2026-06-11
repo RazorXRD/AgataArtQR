@@ -24,10 +24,7 @@
     min-height: 100vh;
   }
 
-<<<<<<< HEAD
   /* ===== TABS ===== */
-=======
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   .tabs {
     display: flex;
     background: var(--dark);
@@ -48,10 +45,7 @@
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-<<<<<<< HEAD
   /* ===== CARD PREVIEW ===== */
-=======
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   .card-wrapper {
     display: flex;
     justify-content: center;
@@ -64,23 +58,8 @@
     box-shadow: 0 8px 40px rgba(0,0,0,.15);
     overflow: hidden;
   }
-<<<<<<< HEAD
   .card::before {
     content: '';
-=======
-
-  .photo-section {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    background: #f0e0e0;
-  }
-  .photo-section img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
     display: block;
     height: 6px;
     background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
@@ -90,7 +69,6 @@
     overflow: hidden;
     background: linear-gradient(135deg, #f9e4e4, #fce4ec);
   }
-<<<<<<< HEAD
   .photo-section img { width:100%; height:100%; object-fit:cover; display:block; }
   .photo-placeholder {
     width:100%; height:100%;
@@ -105,51 +83,6 @@
   .to-name { font-family:'Dancing Script',cursive; font-size:28px; color:var(--rose); text-align:center; margin-bottom:16px; }
   .dedication-text { font-family:'Cormorant Garamond',serif; font-size:16px; font-style:italic; line-height:1.8; color:#4a3030; text-align:justify; white-space:pre-wrap; word-break:break-word; }
   .from-line { font-family:'Dancing Script',cursive; font-size:20px; color:var(--gold); text-align:right; margin-top:18px; }
-=======
-  .photo-placeholder svg { opacity: .4; }
-
-  .card-body {
-    padding: 28px 28px 24px;
-    position: relative;
-  }
-
-  .ornament {
-    text-align: center;
-    color: var(--rose);
-    font-size: 22px;
-    letter-spacing: 6px;
-    margin-bottom: 16px;
-  }
-
-  .to-name {
-    font-family: 'Dancing Script', cursive;
-    font-size: 28px;
-    color: var(--rose);
-    text-align: center;
-    margin-bottom: 18px;
-    line-height: 1.2;
-  }
-
-  .dedication-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 17px;
-    font-style: italic;
-    line-height: 1.75;
-    color: #4a3030;
-    text-align: justify;
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
-  .from-line {
-    font-family: 'Dancing Script', cursive;
-    font-size: 20px;
-    color: var(--gold);
-    text-align: right;
-    margin-top: 20px;
-  }
-
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   .music-section {
     margin: 18px 28px 0;
     padding: 13px 18px;
@@ -192,7 +125,6 @@
   input:focus, textarea:focus { border-color:var(--rose); }
   textarea { resize:vertical; min-height:120px; }
 
-<<<<<<< HEAD
   .photo-upload-box {
     border:2px dashed #e8d0d0; border-radius:6px; padding:24px;
     text-align:center; cursor:pointer; background:#fff9f9;
@@ -208,129 +140,6 @@
   /* Size warning */
   .size-warn { background:#fff8e8; border:1px solid #f0d090; border-radius:4px; padding:10px 14px; font-size:12px; color:#8a6a00; margin-top:8px; display:none; }
   .size-warn.visible { display:block; }
-=======
-  .progress-wrap {
-    height: 3px;
-    background: #f0d0d0;
-    border-radius: 3px;
-    margin-top: 6px;
-    cursor: pointer;
-    position: relative;
-  }
-  .progress-bar {
-    height: 100%;
-    background: var(--rose);
-    border-radius: 3px;
-    width: 0%;
-    transition: width .5s linear;
-  }
-
-  audio { display: none; }
-
-  .card-footer {
-    padding: 18px 28px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: #c0a0a0;
-    font-size: 12px;
-    letter-spacing: 2px;
-  }
-  .heart-footer { color: var(--rose); font-size: 14px; animation: pulse 1.5s infinite; }
-  @keyframes pulse {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
-  }
-
-  .editor-wrap {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 28px 20px 60px;
-  }
-
-  .editor-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    color: var(--rose);
-    margin-bottom: 6px;
-    text-align: center;
-  }
-  .editor-sub {
-    text-align: center;
-    color: #999;
-    font-size: 13px;
-    margin-bottom: 28px;
-    letter-spacing: 1px;
-  }
-
-  .field-group { margin-bottom: 22px; }
-  .field-label {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  input[type="text"], textarea, input[type="url"] {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #e8d0d0;
-    border-radius: 4px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    color: var(--dark);
-    background: white;
-    outline: none;
-    transition: border-color .2s;
-  }
-  input:focus, textarea:focus { border-color: var(--rose); }
-  textarea { resize: vertical; min-height: 120px; }
-
-  /* Foto mediante URL */
-  .photo-url-box {
-    border: 1.5px solid #e8d0d0;
-    border-radius: 4px;
-    padding: 12px;
-    background: white;
-  }
-  .photo-url-box input {
-    border: none;
-    padding: 8px 0;
-    font-size: 14px;
-  }
-  .photo-url-box input:focus { outline: none; }
-  .photo-preview {
-    max-width: 100%;
-    max-height: 150px;
-    object-fit: contain;
-    margin-top: 12px;
-    border-radius: 4px;
-    display: none;
-  }
-  .photo-hint { font-size: 12px; color: #aaa; margin-top: 6px; }
-
-  .song-type-btns {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .type-btn {
-    flex: 1;
-    padding: 9px;
-    border: 1.5px solid #e8d0d0;
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    color: #888;
-    transition: all .2s;
-  }
-  .type-btn.active { background: var(--rose); color: white; border-color: var(--rose); }
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 
   /* Song */
   .song-upload-box {
@@ -355,37 +164,10 @@
   .saved-toast { text-align:center; color:#27ae60; font-size:14px; margin-top:12px; opacity:0; transition:opacity .3s; letter-spacing:1px; }
   .saved-toast.show { opacity:1; }
 
-<<<<<<< HEAD
   /* ===== QR TAB ===== */
   .qr-wrap { max-width:420px; margin:0 auto; padding:36px 20px 60px; text-align:center; }
   .qr-wrap h2 { font-family:'Playfair Display',serif; font-size:26px; color:var(--rose); margin-bottom:8px; }
   .qr-wrap > p { color:#888; font-size:14px; margin-bottom:30px; line-height:1.6; }
-=======
-  .saved-toast {
-    text-align: center;
-    color: #27ae60;
-    font-size: 14px;
-    margin-top: 12px;
-    opacity: 0;
-    transition: opacity .3s;
-    letter-spacing: 1px;
-  }
-  .saved-toast.show { opacity: 1; }
-
-  .qr-wrap {
-    max-width: 420px;
-    margin: 0 auto;
-    padding: 36px 20px 60px;
-    text-align: center;
-  }
-  .qr-wrap h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    color: var(--rose);
-    margin-bottom: 8px;
-  }
-  .qr-wrap p { color: #888; font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 
   #qr-container {
     display:inline-block; padding:20px;
@@ -451,15 +233,11 @@
   <button class="tab-btn" onclick="switchTab('qr',this)">📲 QR</button>
 </div>
 
-<!-- VISTA -->
+<!-- ===== VISTA ===== -->
 <div id="tab-vista" class="tab-content active">
   <div class="card-wrapper">
     <div class="card">
-<<<<<<< HEAD
       <div class="photo-section" id="previewPhotoSection">
-=======
-      <div class="photo-section" id="photoSection">
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
         <div class="photo-placeholder" id="photoPlaceholder">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
             <rect x="3" y="3" width="18" height="18" rx="2"/>
@@ -468,7 +246,6 @@
           </svg>
           <span>Tu foto aquí</span>
         </div>
-<<<<<<< HEAD
         <img id="previewPhoto" src="" alt="" style="display:none">
       </div>
       <div class="card-body">
@@ -479,18 +256,6 @@
       </div>
       <div class="music-section" id="previewMusic">
         <button class="play-btn" onclick="togglePlay()">
-=======
-        <img id="cardPhoto" src="" alt="" style="display:none"/>
-      </div>
-      <div class="card-body">
-        <div class="ornament">✦ ❤ ✦</div>
-        <div class="to-name" id="cardTo">Para ti...</div>
-        <div class="dedication-text" id="cardText">Aquí irá tu dedicatoria especial.</div>
-        <div class="from-line" id="cardFrom">Con amor ❤</div>
-      </div>
-      <div class="music-section hidden" id="musicSection">
-        <button class="play-btn" onclick="togglePlay()" id="playBtn">
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
           <svg id="playIcon" width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
         </button>
         <div class="song-info">
@@ -509,15 +274,14 @@
   </div>
 </div>
 
-<!-- EDITOR -->
+<!-- ===== EDITOR ===== -->
 <div id="tab-editar" class="tab-content">
   <div class="editor-wrap">
     <h2 class="editor-title">✏️ Personaliza tu carta</h2>
     <p class="editor-sub">Los cambios se ven en tiempo real en Vista</p>
 
-    <!-- Foto mediante URL externa -->
+    <!-- Photo -->
     <div class="field-group">
-<<<<<<< HEAD
       <label class="field-label">📸 Foto</label>
       <div class="photo-upload-box" id="photoUploadBox">
         <input type="file" accept="image/*" onchange="uploadPhoto(event)">
@@ -530,38 +294,30 @@
       </div>
       <div class="size-warn" id="photoWarn">
         ⚠️ La foto es grande. Se comprimirá automáticamente para que el QR funcione bien.
-=======
-      <label class="field-label">📸 URL de la foto (externa)</label>
-      <div class="photo-url-box">
-        <input type="url" id="inputPhotoUrl" placeholder="https://... (enlace directo a imagen JPG/PNG)" oninput="liveUpdate()">
-        <div class="photo-hint">Ej: Imagen de Imgur, Flickr, o cualquier imagen pública. No uses imágenes muy grandes en peso, pero la URL será corta.</div>
-        <img id="photoPreview" class="photo-preview" src="" alt="Vista previa">
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
       </div>
     </div>
 
+    <!-- To -->
     <div class="field-group">
       <label class="field-label">💌 Para (nombre)</label>
       <input type="text" id="inputTo" placeholder="Para mi amor..." oninput="liveUpdate()">
     </div>
 
-<<<<<<< HEAD
     <!-- Text -->
-=======
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
     <div class="field-group">
       <label class="field-label">📝 Dedicatoria</label>
-      <textarea id="inputText" placeholder="Escribe aquí tu dedicatoria..." oninput="liveUpdate()"></textarea>
+      <textarea id="inputText" placeholder="Escribe aquí tu dedicatoria con todo el amor del mundo..." oninput="liveUpdate()"></textarea>
     </div>
 
+    <!-- From -->
     <div class="field-group">
       <label class="field-label">✍️ De parte de</label>
       <input type="text" id="inputFrom" placeholder="Con amor, ..." oninput="liveUpdate()">
     </div>
 
+    <!-- Song -->
     <div class="field-group">
       <label class="field-label">🎵 Canción (opcional)</label>
-<<<<<<< HEAD
       <div class="song-upload-box" id="songUploadBox">
         <input type="file" accept="audio/*" onchange="uploadSong(event)">
         <div class="upload-hint">
@@ -573,25 +329,6 @@
         <span>🎵</span>
         <span id="songLoadedName"></span>
         <button class="remove-btn" onclick="removeSong()" title="Quitar canción">✕</button>
-=======
-      <div class="song-type-btns">
-        <button class="type-btn active" onclick="setSongType('none', this)">Sin canción</button>
-        <button class="type-btn" onclick="setSongType('url', this)">Enlace MP3</button>
-        <button class="type-btn" onclick="setSongType('upload', this)">Subir archivo</button>
-      </div>
-      <div class="song-input-section" id="songUrlSection">
-        <input type="url" id="inputSongUrl" placeholder="https://... (enlace directo a .mp3)" oninput="liveUpdate()">
-        <p style="font-size:12px;color:#aaa;margin-top:6px;">Usa un enlace externo para mantener la URL corta.</p>
-      </div>
-      <div class="song-input-section" id="songUploadSection">
-        <div class="photo-upload-box" style="margin-top:0; border:1.5px solid #e8d0d0;">
-          <input type="file" accept="audio/*" onchange="uploadSong(event)" id="songFileInput">
-          <div class="upload-hint"><span>🎵</span>Subir audio (no recomendado, alargará la URL)</div>
-        </div>
-      </div>
-      <div class="field-group" id="songTitleGroup" style="margin-bottom:0;margin-top:12px;display:none">
-        <input type="text" id="inputSongTitle" placeholder="Nombre de la canción" oninput="liveUpdate()">
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
       </div>
       <div class="size-warn" id="songWarn">
         ⚠️ El audio es mayor a 5MB. Los QR muy grandes pueden no funcionar en algunos teléfonos. Usa un archivo más pequeño si es posible.
@@ -603,26 +340,16 @@
     <p class="saved-toast" id="savedToast">✅ ¡Guardado! Ahora ve a 📲 QR</p>
 
     <div class="instructions">
-<<<<<<< HEAD
       <strong>¿Cómo funciona?</strong><br>
       1. Edita tu carta aquí y presiona <strong>Guardar</strong>.<br>
       2. Ve a la pestaña <strong>📲 QR</strong>.<br>
       3. Descarga el QR y compártelo.<br>
       4. Quien lo escanée verá tu carta exactamente como la diseñaste ❤
-=======
-      <strong>✨ Cómo compartir tu carta personalizada (foto externa):</strong><br>
-      1. Sube tu foto a <strong>Imgur</strong> (o similar) y copia el enlace directo de la imagen.<br>
-      2. Pega el enlace en el campo "URL de la foto".<br>
-      3. Escribe tu dedicatoria, nombre, etc.<br>
-      4. Pulsa <strong>Guardar cambios</strong>. La URL se actualizará (corta).<br>
-      5. Ve a <strong>📲 QR</strong> y descarga el código.<br>
-      ¡Quien lo escanee verá la carta con tu foto externa!
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
     </div>
   </div>
 </div>
 
-<!-- QR -->
+<!-- ===== QR ===== -->
 <div id="tab-qr" class="tab-content">
   <div class="qr-wrap">
     <h2>📲 Tu código QR</h2>
@@ -643,7 +370,6 @@
         <button class="qr-btn primary" onclick="downloadQR()">⬇️ Descargar QR</button>
       </div>
     </div>
-<<<<<<< HEAD
 
     <div class="instructions">
       <strong>Importante:</strong> Para que el QR funcione en cualquier teléfono, este archivo debe estar publicado en internet.<br><br>
@@ -652,11 +378,6 @@
       &nbsp;&nbsp;• <code>postal.html</code> (la vista del destinatario)<br><br>
       📌 <strong>Activa GitHub Pages</strong> en tu repo → Settings → Pages → Branch: main<br><br>
       ✅ El QR apuntará automáticamente a tu dominio publicado.
-=======
-    <div class="instructions">
-      <strong>🔐 Privacidad:</strong> Los datos viajan en la URL (excepto la foto, que es un enlace externo).<br>
-      <strong>📏 Límite:</strong> Al usar URL externa para la foto, la URL de tu carta es corta y siempre funcionará.
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
     </div>
   </div>
 </div>
@@ -664,23 +385,13 @@
 <script>
 // ===== STATE =====
 let state = {
-<<<<<<< HEAD
   to: '', text: '', from: '',
   photo: null,          // base64 (compressed)
   songData: null,       // base64
-=======
-  to: '',
-  text: '',
-  from: '',
-  photoUrl: '',        // ahora es una URL externa, no base64
-  songType: 'none',
-  songUrl: '',
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   songTitle: '',
   saved: false
 };
 
-<<<<<<< HEAD
 // ===== INIT =====
 window.addEventListener('load', function() {
   const saved = localStorage.getItem('dedicatoria_creator_v3');
@@ -701,83 +412,14 @@ function switchTab(name, btn) {
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
   if (name === 'qr') renderQR();
-=======
-// ==================== URL MANAGEMENT ====================
-function updateURLWithState() {
-  try {
-    const stateForURL = {
-      to: state.to,
-      text: state.text,
-      from: state.from,
-      photoUrl: state.photoUrl || '',
-      songType: state.songType,
-      songUrl: state.songUrl || '',
-      songTitle: state.songTitle || ''
-    };
-    const jsonStr = JSON.stringify(stateForURL);
-    const encoded = btoa(encodeURIComponent(jsonStr));
-    const newUrl = window.location.origin + window.location.pathname + '?data=' + encoded;
-    window.history.pushState({}, '', newUrl);
-    generateQR();
-  } catch(e) {
-    console.error(e);
-    alert('Error al actualizar la URL. Los datos pueden ser demasiado largos (¿has subido un audio pesado?)');
-  }
-}
-
-function loadStateFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  const encoded = params.get('data');
-  if (!encoded) return false;
-  try {
-    const jsonStr = decodeURIComponent(atob(encoded));
-    const loaded = JSON.parse(jsonStr);
-    Object.assign(state, loaded);
-    if (!['none','url','upload'].includes(state.songType)) state.songType = 'none';
-    applyToCard();
-    loadEditorFields();
-    return true;
-  } catch(e) { return false; }
-}
-
-function init() {
-  const fromURL = loadStateFromURL();
-  if (!fromURL) {
-    const saved = localStorage.getItem('dedicatoria_v2');
-    if (saved) {
-      try { Object.assign(state, JSON.parse(saved)); } catch(e) {}
-    }
-  }
-  applyToCard();
-  loadEditorFields();
-  generateQR();
-}
-
-function saveAll() {
-  state.to = document.getElementById('inputTo').value;
-  state.text = document.getElementById('inputText').value;
-  state.from = document.getElementById('inputFrom').value;
-  if (state.songType === 'url') state.songUrl = document.getElementById('inputSongUrl').value;
-  state.songTitle = document.getElementById('inputSongTitle').value;
-  state.photoUrl = document.getElementById('inputPhotoUrl').value;
-
-  localStorage.setItem('dedicatoria_v2', JSON.stringify(state));
-  applyToCard();
-  updateURLWithState();
-
-  const toast = document.getElementById('savedToast');
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2500);
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 }
 
 // ===== LIVE UPDATE =====
 function liveUpdate() {
-  state.to = document.getElementById('inputTo').value;
+  state.to   = document.getElementById('inputTo').value;
   state.text = document.getElementById('inputText').value;
   state.from = document.getElementById('inputFrom').value;
   state.songTitle = document.getElementById('inputSongTitle').value;
-<<<<<<< HEAD
   applyToPreview();
 }
 
@@ -796,26 +438,6 @@ function applyToPreview() {
   } else {
     pi.style.display = 'none';
     ph.style.display = 'flex';
-=======
-  state.photoUrl = document.getElementById('inputPhotoUrl').value;
-  applyToCard();
-}
-
-function applyToCard() {
-  document.getElementById('cardTo').textContent = state.to || 'Para ti...';
-  document.getElementById('cardText').textContent = state.text || 'Aquí irá tu dedicatoria especial.';
-  document.getElementById('cardFrom').textContent = state.from || 'Con amor ❤';
-
-  const photoImg = document.getElementById('cardPhoto');
-  const placeholder = document.getElementById('photoPlaceholder');
-  if (state.photoUrl && state.photoUrl.trim() !== '') {
-    photoImg.src = state.photoUrl;
-    photoImg.style.display = 'block';
-    placeholder.style.display = 'none';
-  } else {
-    photoImg.style.display = 'none';
-    placeholder.style.display = 'flex';
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   }
 
   const ms = document.getElementById('previewMusic');
@@ -838,22 +460,12 @@ function loadEditorFields() {
   document.getElementById('inputText').value      = state.text || '';
   document.getElementById('inputFrom').value      = state.from || '';
   document.getElementById('inputSongTitle').value = state.songTitle || '';
-  document.getElementById('inputPhotoUrl').value = state.photoUrl || '';
 
-<<<<<<< HEAD
   if (state.photo) {
     const prev = document.getElementById('photoPreview');
     prev.src = state.photo;
     prev.style.display = 'block';
     document.getElementById('photoHint').style.display = 'none';
-=======
-  const preview = document.getElementById('photoPreview');
-  if (state.photoUrl) {
-    preview.src = state.photoUrl;
-    preview.style.display = 'block';
-  } else {
-    preview.style.display = 'none';
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   }
 
   if (state.songData) {
@@ -865,7 +477,6 @@ function loadEditorFields() {
   }
 }
 
-<<<<<<< HEAD
 // ===== PHOTO =====
 function uploadPhoto(e) {
   const file = e.target.files[0];
@@ -908,45 +519,6 @@ function compressAndLoadImage(file, callback) {
 }
 
 // ===== SONG =====
-=======
-function setSongType(type, btn) {
-  state.songType = type;
-  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('songUrlSection').classList.remove('visible');
-  document.getElementById('songUploadSection').classList.remove('visible');
-  document.getElementById('songTitleGroup').style.display = 'none';
-  if (type === 'url') {
-    document.getElementById('songUrlSection').classList.add('visible');
-    document.getElementById('songTitleGroup').style.display = 'block';
-  } else if (type === 'upload') {
-    document.getElementById('songUploadSection').classList.add('visible');
-    document.getElementById('songTitleGroup').style.display = 'block';
-  } else {
-    state.songUrl = '';
-    applyToCard();
-  }
-}
-
-function setSongTypeByValue(type) {
-  document.querySelectorAll('.type-btn').forEach((b, i) => {
-    b.classList.remove('active');
-    if ((i===0 && type==='none') || (i===1 && type==='url') || (i===2 && type==='upload'))
-      b.classList.add('active');
-  });
-  document.getElementById('songUrlSection').classList.remove('visible');
-  document.getElementById('songUploadSection').classList.remove('visible');
-  document.getElementById('songTitleGroup').style.display = 'none';
-  if (type === 'url') {
-    document.getElementById('songUrlSection').classList.add('visible');
-    document.getElementById('songTitleGroup').style.display = 'block';
-  } else if (type === 'upload') {
-    document.getElementById('songUploadSection').classList.add('visible');
-    document.getElementById('songTitleGroup').style.display = 'block';
-  }
-}
-
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 function uploadSong(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -971,7 +543,6 @@ function uploadSong(e) {
   reader.readAsDataURL(file);
 }
 
-<<<<<<< HEAD
 function removeSong() {
   state.songData = null; state.songTitle = '';
   document.getElementById('songLoaded').classList.remove('visible');
@@ -983,9 +554,6 @@ function removeSong() {
 }
 
 // ===== AUDIO PLAYER =====
-=======
-// Audio player (sin cambios relevantes)
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 let playing = false;
 function togglePlay() {
   const audio = document.getElementById('audioPlayer');
@@ -993,11 +561,7 @@ function togglePlay() {
     audio.pause(); playing = false;
     document.getElementById('playIcon').innerHTML = '<polygon points="5,3 19,12 5,21"/>';
   } else {
-<<<<<<< HEAD
     audio.play().catch(()=>{});
-=======
-    audio.play().catch(e => console.log(e));
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
     playing = true;
     document.getElementById('playIcon').innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
   }
@@ -1016,7 +580,6 @@ function updateProgress() {
   const s = Math.floor(audio.currentTime%60).toString().padStart(2,'0');
   document.getElementById('songTime').textContent = m+':'+s;
 }
-<<<<<<< HEAD
 
 // ===== SAVE =====
 function saveAll() {
@@ -1105,70 +668,32 @@ function renderQR() {
     statusEl.className = 'qr-status error';
     statusEl.innerHTML = '❌ Demasiado grande para QR. Reduce la foto (usa jpg pequeño) o quita el audio.';
   }
-=======
-function seekAudio(e) {
-  const audio = document.getElementById('audioPlayer');
-  if (!audio.duration) return;
-  const rect = e.currentTarget.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  audio.currentTime = pct * audio.duration;
 }
-function switchTab(name) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  event.target.classList.add('active');
-  if (name === 'qr') generateQR();
-}
-function generateQR() {
-  const container = document.getElementById('qrcode');
-  const urlDisplay = document.getElementById('qrUrlDisplay');
-  const url = window.location.href;
-  urlDisplay.textContent = url;
-  container.innerHTML = '';
-  try {
-    new QRCode(container, { text: url, width: 200, height: 200, colorDark: '#2c1a1a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
-  } catch(e) { container.innerHTML = '<p style="color:#c0392b;">Error QR</p>'; }
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
-}
+
 function copyLink() {
-<<<<<<< HEAD
   const url = buildPostalURL();
   navigator.clipboard.writeText(url).then(() => {
     alert('¡Enlace copiado! Pégalo en WhatsApp o donde quieras para compartir la postal.');
   }).catch(() => {
     prompt('Copia este enlace:', url);
   });
-=======
-  const url = window.location.href;
-  navigator.clipboard.writeText(url).then(() => alert('Enlace copiado')).catch(() => prompt('Copia el enlace:', url));
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 }
+
 function downloadQR() {
   const canvas = document.querySelector('#qrcode canvas');
-<<<<<<< HEAD
   if (!canvas) { alert('Espera a que se genere el QR.'); return; }
 
-=======
-  if (!canvas) { alert('Espera a que se genere el QR'); return; }
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   const out = document.createElement('canvas');
   out.width = 320; out.height = 370;
   const ctx = out.getContext('2d');
+
   ctx.fillStyle = '#fff';
-<<<<<<< HEAD
   ctx.fillRect(0,0,320,370);
   ctx.strokeStyle = '#c0392b';
   ctx.lineWidth = 5;
   ctx.strokeRect(3,3,314,364);
 
   // Hearts corners
-=======
-  ctx.fillRect(0, 0, 300, 340);
-  ctx.strokeStyle = '#c0392b';
-  ctx.lineWidth = 4;
-  ctx.strokeRect(2, 2, 296, 336);
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
   ctx.fillStyle = '#c0392b';
   ctx.font = '20px serif';
   ctx.fillText('❤', 14, 34);
@@ -1176,7 +701,6 @@ function downloadQR() {
 
   ctx.font = 'bold 18px serif';
   ctx.textAlign = 'center';
-<<<<<<< HEAD
   ctx.fillText('Escanéame ❤', 160, 38);
 
   ctx.drawImage(canvas, 50, 55, 220, 220);
@@ -1194,20 +718,6 @@ function downloadQR() {
   link.href = out.toDataURL('image/png');
   link.click();
 }
-=======
-  ctx.fillText('❤ Escanéame ❤', 150, 34);
-  ctx.drawImage(canvas, 50, 50, 200, 200);
-  ctx.fillStyle = '#888';
-  ctx.font = '12px serif';
-  ctx.fillText('Mi carta de dedicatoria', 150, 290);
-  const link = document.createElement('a');
-  link.download = 'qr-dedicatoria.png';
-  link.href = out.toDataURL('image/png');
-  link.click();
-}
-
-document.addEventListener('DOMContentLoaded', init);
->>>>>>> c11cf6441580bd9a9bd87207804b0b889266fd13
 </script>
 </body>
 </html>
