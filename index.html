@@ -757,14 +757,26 @@ function renderQR() {
 
   document.getElementById('qrUrlDisplay').textContent = url.substring(0, 80) + '…';
 
+  // Hard cap: qrcodejs (level L, version 40) maxes around ~2950 alphanumeric chars
+  if (urlLen > 2900) {
+    document.getElementById('qrcode').innerHTML = '<p style="color:#c0392b;padding:20px;font-size:13px">El contenido es demasiado grande para un QR.<br>Reduce la foto o quita el audio (usa un enlace en su lugar).</p>';
+    return;
+  }
+
   // Generate QR
   const container = document.getElementById('qrcode');
   container.innerHTML = '';
+
+  // Larger render size for dense data improves scan reliability
+  let qrPixelSize = 220;
+  if (urlLen > 1500) qrPixelSize = 320;
+  if (urlLen > 2200) qrPixelSize = 420;
+
   try {
     new QRCode(container, {
       text: url,
-      width: 220,
-      height: 220,
+      width: qrPixelSize,
+      height: qrPixelSize,
       colorDark: '#2c1a1a',
       colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.L  // L = can encode more data
@@ -789,35 +801,42 @@ function downloadQR() {
   const canvas = document.querySelector('#qrcode canvas');
   if (!canvas) { alert('Espera a que se genere el QR.'); return; }
 
+  const qrSize = canvas.width; // native QR size (e.g. 220 or higher for dense codes)
+  const margin = 50;
+  const outW = qrSize + margin*2;
+  const outH = qrSize + margin*2 + 100;
+
   const out = document.createElement('canvas');
-  out.width = 320; out.height = 370;
+  out.width = outW; out.height = outH;
   const ctx = out.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
 
   ctx.fillStyle = '#fff';
-  ctx.fillRect(0,0,320,370);
+  ctx.fillRect(0,0,outW,outH);
   ctx.strokeStyle = '#c0392b';
   ctx.lineWidth = 5;
-  ctx.strokeRect(3,3,314,364);
+  ctx.strokeRect(3,3,outW-6,outH-6);
 
   // Hearts corners
   ctx.fillStyle = '#c0392b';
   ctx.font = '20px serif';
   ctx.fillText('❤', 14, 34);
-  ctx.fillText('❤', 282, 34);
+  ctx.fillText('❤', outW-32, 34);
 
   ctx.font = 'bold 18px serif';
   ctx.textAlign = 'center';
-  ctx.fillText('Escanéame ❤', 160, 38);
+  ctx.fillText('Escanéame ❤', outW/2, 38);
 
-  ctx.drawImage(canvas, 50, 55, 220, 220);
+  // Draw QR at native resolution (1:1, no scaling) to preserve module integrity
+  ctx.drawImage(canvas, margin, 55, qrSize, qrSize);
 
   ctx.fillStyle = '#888';
   ctx.font = '13px serif';
-  ctx.fillText(state.to ? `Para: ${state.to}` : 'Mi carta de dedicatoria', 160, 308);
+  ctx.fillText(state.to ? `Para: ${state.to}` : 'Mi carta de dedicatoria', outW/2, 55+qrSize+30);
 
   ctx.fillStyle = '#c0a0a0';
   ctx.font = '11px serif';
-  ctx.fillText('Con todo mi amor ❤', 160, 340);
+  ctx.fillText('Con todo mi amor ❤', outW/2, 55+qrSize+62);
 
   const link = document.createElement('a');
   link.download = `qr-dedicatoria${state.to ? '-'+state.to : ''}.png`;
